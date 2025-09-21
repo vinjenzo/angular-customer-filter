@@ -9,6 +9,7 @@ import { FunnelStepModel } from '../app.model';
   styleUrl: './funnel-step.css',
 })
 export class FunnelStep {
+  @Input() num: number | undefined;
   @Input() set step(value: FunnelStepModel) {
     this.stepSignal.set(value);
   }

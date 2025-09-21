@@ -11,4 +11,12 @@ import { FunnelStepModel } from '../app.model';
 })
 export class CustomerFilter {
   funnelSteps = signal<FunnelStepModel[]>([{ eventType: 'Unnamed step' }]);
+
+  addStep() {
+    this.funnelSteps.update((steps) => [...steps, { eventType: 'Unnamed step' }]);
+  }
+
+  removeStep(index: number) {
+    this.funnelSteps.update((steps) => steps.filter((_, i) => i !== index));
+  }
 }

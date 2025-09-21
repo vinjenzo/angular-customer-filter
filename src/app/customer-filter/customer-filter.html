@@ -5,10 +5,14 @@
   </div>
   <div class="filter-steps-box">
     @for (step of funnelSteps(); track $index) {
-    <div>
-      <funnel-step [step]="step"></funnel-step>
+    <div class="step-row">
+      <funnel-step [num]="$index + 1" [step]="step"></funnel-step>
+      <button class="remove" (click)="removeStep($index)">
+        <img src="/bin.png" width="20" alt="Remove step" />
+      </button>
     </div>
     }
+    <a class="add-link" (click)="addStep()">+ ADD FUNNEL STEP</a>
   </div>
   <button class="apply">Apply filters</button>
 </div>

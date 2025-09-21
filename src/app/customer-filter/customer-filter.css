@@ -16,3 +16,25 @@
   margin: 1rem 0;
   background: #eee;
 }
+
+.add-link {
+  color: darkcyan;
+  cursor: pointer;
+  display: block;
+  text-align: center;
+}
+
+.remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.step-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  margin: 1.5rem 0.5rem;
+}
