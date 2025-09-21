@@ -4,7 +4,11 @@
     <a class="discard">Discard filters</a>
   </div>
   <div class="filter-steps-box">
-    <funnel-step></funnel-step>
+    @for (step of funnelSteps(); track $index) {
+    <div>
+      <funnel-step [step]="step"></funnel-step>
+    </div>
+    }
   </div>
   <button class="apply">Apply filters</button>
 </div>

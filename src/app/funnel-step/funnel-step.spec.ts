@@ -8,9 +8,8 @@ describe('FunnelStep', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FunnelStep]
-    })
-    .compileComponents();
+      imports: [FunnelStep],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FunnelStep);
     component = fixture.componentInstance;
