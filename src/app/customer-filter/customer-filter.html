@@ -8,9 +8,14 @@
     <div class="step-row">
       <funnel-step [num]="$index + 1" [stepSignal]="step" [eventModel]="eventModel()"></funnel-step>
 
-      <button class="remove" (click)="removeStep($index)">
-        <img src="/bin.png" width="20" alt="Remove step" />
-      </button>
+      <div class="step-actions">
+        <button class="remove" (click)="removeStep($index)">
+          <img src="/bin.png" width="20" alt="Remove step" />
+        </button>
+        <button class="clone" (click)="cloneStep($index)">
+          <img src="/clone.png" width="20" alt="Clone step" />
+        </button>
+      </div>
     </div>
     }
     <a class="add-link" (click)="addStep()">+ ADD FUNNEL STEP</a>

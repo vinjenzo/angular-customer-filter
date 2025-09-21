@@ -28,6 +28,18 @@ export class CustomerFilter {
     ]);
   }
 
+  cloneStep(index: number) {
+    const stepToClone = this.funnelSteps()[index]();
+    this.funnelSteps.update((steps) => [
+      ...steps,
+      signal<FunnelStepModel>({
+        ...stepToClone,
+        eventType: stepToClone.eventType,
+        id: crypto.randomUUID(),
+      }),
+    ]);
+  }
+
   removeStep(index: number) {
     this.funnelSteps.update((steps) => steps.filter((_, i) => i !== index));
   }

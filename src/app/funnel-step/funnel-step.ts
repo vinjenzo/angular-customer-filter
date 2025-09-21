@@ -13,7 +13,13 @@ export class FunnelStep {
   @Input() stepSignal: WritableSignal<FunnelStepModel> = signal<FunnelStepModel>({});
   @Input() eventModel: EventModel[] = [];
 
-  selectedEvent: string = '';
+  get selectedEvent(): string {
+    return this.stepSignal().eventType || '';
+  }
+
+  set selectedEvent(value: string) {
+    this.stepSignal.update((s) => ({ ...s, eventType: value }));
+  }
 
   get availableEvents(): string[] {
     return this.eventModel.map((e) => e.type);

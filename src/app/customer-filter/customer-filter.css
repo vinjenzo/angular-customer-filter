@@ -24,7 +24,8 @@
   text-align: center;
 }
 
-.remove {
+.remove,
+.clone {
   background: none;
   border: none;
   cursor: pointer;
@@ -37,4 +38,10 @@
   justify-content: space-between;
 
   margin: 1.5rem 0.5rem;
+}
+
+.step-actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
 }
