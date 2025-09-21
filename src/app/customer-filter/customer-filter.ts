@@ -23,4 +23,8 @@ export class CustomerFilter {
   applyFilters() {
     console.log('Applying filters:', this.funnelSteps());
   }
+
+  discardFilters() {
+    this.funnelSteps.set([{ eventType: 'Unnamed step' }]);
+  }
 }
