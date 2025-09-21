@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
-import { FilterSteps } from './filter-steps/filter-steps';
+import { FormsModule } from '@angular/forms';
+import { CustomerFilter } from './customer-filter/customer-filter';
 
 @Component({
   selector: 'app-root',
-  imports: [FilterSteps],
+  imports: [FormsModule, CustomerFilter],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

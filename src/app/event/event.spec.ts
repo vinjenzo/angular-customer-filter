@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FilterSteps } from './filter-steps';
+import { Event } from './event';
 
-describe('FilterSteps', () => {
-  let component: FilterSteps;
-  let fixture: ComponentFixture<FilterSteps>;
+describe('Event', () => {
+  let component: Event;
+  let fixture: ComponentFixture<Event>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FilterSteps]
+      imports: [Event]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FilterSteps);
+    fixture = TestBed.createComponent(Event);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
