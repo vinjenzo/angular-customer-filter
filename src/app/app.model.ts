@@ -1,3 +1,9 @@
 export type FunnelStepModel = {
-  eventType: string;
+  id?: unknown;
+  eventType?: string;
+};
+
+export type EventModel = {
+  type: string;
+  properties: { property: string; type: string }[];
 };

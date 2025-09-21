@@ -1,18 +1,25 @@
-import { Component, Input, signal } from '@angular/core';
-import { Event } from '../event/event';
-import { FunnelStepModel } from '../app.model';
+import { Component, Input, signal, WritableSignal } from '@angular/core';
+import { EventModel, FunnelStepModel } from '../app.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'funnel-step',
-  imports: [Event],
+  imports: [FormsModule],
   templateUrl: './funnel-step.html',
   styleUrl: './funnel-step.css',
 })
 export class FunnelStep {
   @Input() num: number | undefined;
-  @Input() set step(value: FunnelStepModel) {
-    this.stepSignal.set(value);
+  @Input() stepSignal: WritableSignal<FunnelStepModel> = signal<FunnelStepModel>({});
+  @Input() eventModel: EventModel[] = [];
+
+  selectedEvent: string = '';
+
+  get availableEvents(): string[] {
+    return this.eventModel.map((e) => e.type);
   }
 
-  stepSignal = signal<FunnelStepModel>({ eventType: '' });
+  onEventSelected() {
+    this.stepSignal.update((step) => ({ ...step, eventType: this.selectedEvent }));
+  }
 }

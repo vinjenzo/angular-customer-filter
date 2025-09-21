@@ -4,9 +4,10 @@
     <a class="discard" (click)="discardFilters()">Discard filters</a>
   </div>
   <div class="filter-steps-box">
-    @for (step of funnelSteps(); track $index) {
+    @for (step of funnelSteps(); track step().id) {
     <div class="step-row">
-      <funnel-step [num]="$index + 1" [step]="step"></funnel-step>
+      <funnel-step [num]="$index + 1" [stepSignal]="step" [eventModel]="eventModel()"></funnel-step>
+
       <button class="remove" (click)="removeStep($index)">
         <img src="/bin.png" width="20" alt="Remove step" />
       </button>

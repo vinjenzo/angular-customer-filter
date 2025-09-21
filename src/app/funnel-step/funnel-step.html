@@ -1,4 +1,14 @@
 <div>
   <span>{{ num }}. Step: {{ stepSignal().eventType }}</span>
-  <event></event>
+
+  <div class="event-selector">
+    <label for="event">Event:</label>
+    <select id="event" [(ngModel)]="selectedEvent" (change)="onEventSelected()">
+      <option value="" disabled>Select an event</option>
+
+      @for (event of availableEvents; track $index) {
+      <option [value]="event">{{ event }}</option>
+      }
+    </select>
+  </div>
 </div>

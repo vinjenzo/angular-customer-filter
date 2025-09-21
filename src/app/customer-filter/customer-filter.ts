@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { FunnelStep } from '../funnel-step/funnel-step';
 import { CommonModule } from '@angular/common';
-import { FunnelStepModel } from '../app.model';
+import { EventModel, FunnelStepModel } from '../app.model';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'customer-filter',
@@ -10,10 +11,21 @@ import { FunnelStepModel } from '../app.model';
   styleUrl: './customer-filter.css',
 })
 export class CustomerFilter {
-  funnelSteps = signal<FunnelStepModel[]>([{ eventType: 'Unnamed step' }]);
+  funnelSteps = signal<WritableSignal<FunnelStepModel>[]>([]);
+  eventModel = signal<EventModel[]>([]);
+
+  private eventService = inject(AppService);
+
+  async ngOnInit() {
+    const events = await this.eventService.getEvents();
+    this.eventModel.set(events);
+  }
 
   addStep() {
-    this.funnelSteps.update((steps) => [...steps, { eventType: 'Unnamed step' }]);
+    this.funnelSteps.update((steps) => [
+      ...steps,
+      signal<FunnelStepModel>({ eventType: 'Unnamed step', id: crypto.randomUUID() }),
+    ]);
   }
 
   removeStep(index: number) {
@@ -21,10 +33,15 @@ export class CustomerFilter {
   }
 
   applyFilters() {
-    console.log('Applying filters:', this.funnelSteps());
+    console.log(
+      'Applying filters:',
+      this.funnelSteps().map((step) => step())
+    );
   }
 
   discardFilters() {
-    this.funnelSteps.set([{ eventType: 'Unnamed step' }]);
+    this.funnelSteps.set([
+      signal<FunnelStepModel>({ eventType: 'Unnamed step', id: crypto.randomUUID() }),
+    ]);
   }
 }
