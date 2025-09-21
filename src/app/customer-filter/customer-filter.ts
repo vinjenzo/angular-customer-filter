@@ -19,4 +19,8 @@ export class CustomerFilter {
   removeStep(index: number) {
     this.funnelSteps.update((steps) => steps.filter((_, i) => i !== index));
   }
+
+  applyFilters() {
+    console.log('Applying filters:', this.funnelSteps());
+  }
 }
