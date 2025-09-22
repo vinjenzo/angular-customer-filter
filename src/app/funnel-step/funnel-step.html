@@ -3,8 +3,8 @@
 
   <div class="event-selector">
     <label for="event">Event:</label>
-    <select id="event" [(ngModel)]="selectedEvent" (change)="onEventSelected()">
-      <option value="" disabled>Select an event</option>
+    <select id="event" [(ngModel)]="stepSignal().eventType">
+      <option value="Unnamed step" disabled>Select an event</option>
 
       @for (event of availableEvents; track $index) {
       <option [value]="event">{{ event }}</option>

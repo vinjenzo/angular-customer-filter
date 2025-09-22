@@ -11,7 +11,9 @@ import { AppService } from '../app.service';
   styleUrl: './customer-filter.css',
 })
 export class CustomerFilter {
-  funnelSteps = signal<WritableSignal<FunnelStepModel>[]>([]);
+  funnelSteps = signal<WritableSignal<FunnelStepModel>[]>([
+    signal({ eventType: 'Unnamed step', id: crypto.randomUUID() }),
+  ]);
   eventModel = signal<EventModel[]>([]);
 
   private eventService = inject(AppService);
