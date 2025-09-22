@@ -7,7 +7,8 @@ export type FunnelStepModel = {
 export type FunnelFilter = {
   attribute: string;
   operator: string;
-  value?: string[];
+  value?: string | string[];
+  type?: 'string' | 'number';
 };
 
 export type EventModel = {

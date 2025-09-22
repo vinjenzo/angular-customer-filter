@@ -1,5 +1,5 @@
 import { Component, Input, signal, WritableSignal } from '@angular/core';
-import { defaultOperators, EventModel, FunnelFilter, FunnelStepModel } from '../app.model';
+import { EventModel, FunnelFilter, FunnelStepModel } from '../app.model';
 import { FormsModule } from '@angular/forms';
 import { Attribute } from '../attribute/attribute';
 import { Operator } from '../operator/operator';
@@ -16,7 +16,6 @@ export class FunnelStep {
     filters: [{ attribute: 'Select attribute', operator: '', value: [''] }],
   });
   @Input() eventModel: EventModel[] = [];
-  selectedProperty: string = '';
 
   get availableEvents(): string[] {
     return this.eventModel.map((e) => e.type);
@@ -31,7 +30,7 @@ export class FunnelStep {
     this.stepSignal.update((step) => {
       let filters = Array.isArray(step.filters) ? [...step.filters] : [];
 
-      filters.push({ attribute: '', value: [''], operator: '' });
+      filters.push({ attribute: '', value: '', operator: '', type: 'string' });
 
       return {
         ...step,
@@ -40,27 +39,23 @@ export class FunnelStep {
     });
   }
 
-  updateFilter(index: number, key: keyof FunnelFilter, value: string) {
-    this.selectedProperty = value;
-
+  updateFilter(index: number, key: keyof FunnelFilter, value: string | string[]) {
     this.stepSignal.update((step) => {
       let filters = Array.isArray(step.filters) ? [...step.filters] : [];
 
-      while (filters.length <= index) {
-        filters.push({ attribute: '', operator: '', value: [''] });
-      }
       filters[index] = { ...filters[index], [key]: value };
+
+      if (key === 'attribute') {
+        const event = this.eventModel.find((e) => e.type === step.eventType);
+        const prop = event?.properties.find((p) => p.property === value);
+        const type = prop?.type === 'number' ? 'number' : 'string';
+        filters[index].type = type;
+      }
 
       return {
         ...step,
         filters,
       };
     });
-  }
-
-  getOperatorsForAttribute(attr: string): string[] {
-    const event = this.eventModel.find((e) => e.type === this.stepSignal().eventType);
-    const prop = event?.properties.find((p) => p.property === attr);
-    return defaultOperators[prop?.type ?? 'string'];
   }
 }

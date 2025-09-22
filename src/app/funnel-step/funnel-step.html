@@ -23,19 +23,31 @@
       </attribute>
 
       <operator
-        [operators]="getOperatorsForAttribute(filter.attribute)"
+        [type]="filter.type ?? 'string'"
         [selected]="filter.operator"
         (selectedChange)="updateFilter($index, 'operator', $event)"
       >
       </operator>
+      @if (filter.operator === 'in between') {
+      <input
+        type="text"
+        [value]="filter.value?.[0] ?? ''"
+        (input)="updateFilter($index, 'value', [$event.target.value, filter.value?.[1] ?? ''])"
+      />
+      and
+      <input
+        type="text"
+        [value]="filter.value?.[1] ?? ''"
+        (input)="updateFilter($index, 'value', [filter.value?.[0] ?? '', $event.target.value])"
+      />
+      } @else {
 
       <input
         type="text"
-        [value]="filter.value"
+        [value]="filter.value?.[0] ?? ''"
         (input)="updateFilter($index, 'value', $event.target.value)"
       />
-
-      @if ($last === false) {
+      } @if ($last === false) {
       <div class="filter-separator">AND</div>
       }
     </div>
