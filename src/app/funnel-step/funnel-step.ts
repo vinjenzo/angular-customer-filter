@@ -26,11 +26,30 @@ export class FunnelStep {
     return event?.properties.map((p) => p.property) ?? [];
   }
 
+  hasActiveFilters(): boolean {
+    const filters = this.stepSignal().filters;
+    if (!filters || filters.length === 0) return false;
+
+    return true;
+  }
+
   addFilter() {
     this.stepSignal.update((step) => {
       let filters = Array.isArray(step.filters) ? [...step.filters] : [];
 
       filters.push({ attribute: '', value: '', operator: '', type: 'string' });
+
+      return {
+        ...step,
+        filters,
+      };
+    });
+  }
+
+  removeFilter(index: number) {
+    this.stepSignal.update((step) => {
+      let filters = Array.isArray(step.filters) ? [...step.filters] : [];
+      filters.splice(index, 1);
 
       return {
         ...step,

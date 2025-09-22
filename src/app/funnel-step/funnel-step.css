@@ -1,0 +1,26 @@
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.refine-link {
+  color: darkcyan;
+  cursor: pointer;
+  display: block;
+  margin-top: 1rem;
+}
+
+.filter-separator {
+  margin: 0.5rem 0;
+  color: gray;
+  font-weight: bold;
+  font-size: smaller;
+}
+
+.remove-filter {
+  color: red;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
