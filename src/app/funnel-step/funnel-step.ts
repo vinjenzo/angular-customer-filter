@@ -26,6 +26,21 @@ export class FunnelStep {
     return event?.properties.map((p) => p.property) ?? [];
   }
 
+  addFilter() {
+    console.log('Adding filter');
+
+    this.stepSignal.update((step) => {
+      let filters = Array.isArray(step.filters) ? [...step.filters] : [];
+
+      filters.push({ attribute: '', value: [''] });
+
+      return {
+        ...step,
+        filters,
+      };
+    });
+  }
+
   updateFilter(index: number, key: keyof FunnelFilter, value: string) {
     this.selectedProperty = value;
 

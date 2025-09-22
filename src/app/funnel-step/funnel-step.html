@@ -20,12 +20,16 @@
     >
     </attribute>
     } @else { @for (filter of stepSignal().filters; track $index) {
-    <attribute
-      [attributes]="propertiesForEvent"
-      [selected]="filter.attribute"
-      (selectedChange)="updateFilter($index, 'attribute', $event)"
-    >
-    </attribute>
-    } }
+    <div>
+      <attribute
+        [attributes]="propertiesForEvent"
+        [selected]="filter.attribute"
+        (selectedChange)="updateFilter($index, 'attribute', $event)"
+      >
+      </attribute>
+      <div class="filter-separator">AND</div>
+    </div>
+    } @if (stepSignal().filters !== undefined ){
+    <a class="refine-link" (click)="addFilter()">Refine more</a> }}
   </div>
 </div>
