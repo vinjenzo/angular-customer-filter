@@ -11,4 +11,21 @@
       }
     </select>
   </div>
+  <div>
+    @if (stepSignal().eventType !== 'Unnamed step' && stepSignal().filters === undefined)
+    {<attribute
+      [attributes]="propertiesForEvent"
+      [selected]="''"
+      (selectedChange)="updateFilter(0, 'attribute', $event)"
+    >
+    </attribute>
+    } @else { @for (filter of stepSignal().filters; track $index) {
+    <attribute
+      [attributes]="propertiesForEvent"
+      [selected]="filter.attribute"
+      (selectedChange)="updateFilter($index, 'attribute', $event)"
+    >
+    </attribute>
+    } }
+  </div>
 </div>

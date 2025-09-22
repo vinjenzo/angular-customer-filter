@@ -1,0 +1,7 @@
+<select [ngModel]="selected" (ngModelChange)="onChange($event)">
+  <option value="" disabled>Select attribute</option>
+
+  @for (attr of attributes; track $index) {
+  <option [value]="attr">{{ attr }}</option>
+  }
+</select>
