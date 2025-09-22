@@ -1,0 +1,7 @@
+<select [ngModel]="selected" (ngModelChange)="onChange($event)">
+  <option value="" disabled>Select operator</option>
+
+  @for (op of operators; track $index) {
+  <option [value]="op">{{ op }}</option>
+  }
+</select>

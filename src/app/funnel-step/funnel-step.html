@@ -12,24 +12,34 @@
     </select>
   </div>
   <div>
-    @if (stepSignal().eventType !== 'Unnamed step' && stepSignal().filters === undefined)
-    {<attribute
-      [attributes]="propertiesForEvent"
-      [selected]="''"
-      (selectedChange)="updateFilter(0, 'attribute', $event)"
-    >
-    </attribute>
-    } @else { @for (filter of stepSignal().filters; track $index) {
+    @if (stepSignal().eventType !== 'Unnamed step') { @for (filter of stepSignal().filters ??
+    [{attribute: '', operator: '', value: ['']}]; track $index) {
     <div>
       <attribute
         [attributes]="propertiesForEvent"
-        [selected]="filter.attribute"
+        [selected]="filter?.attribute ?? ''"
         (selectedChange)="updateFilter($index, 'attribute', $event)"
       >
       </attribute>
+
+      <operator
+        [operators]="getOperatorsForAttribute(filter.attribute)"
+        [selected]="filter.operator"
+        (selectedChange)="updateFilter($index, 'operator', $event)"
+      >
+      </operator>
+
+      <input
+        type="text"
+        [value]="filter.value"
+        (input)="updateFilter($index, 'value', $event.target.value)"
+      />
+
+      @if ($last === false) {
       <div class="filter-separator">AND</div>
+      }
     </div>
-    } @if (stepSignal().filters !== undefined ){
-    <a class="refine-link" (click)="addFilter()">Refine more</a> }}
+    }} @if (stepSignal().filters !== undefined ){
+    <a class="refine-link" (click)="addFilter()">Refine more</a> }
   </div>
 </div>

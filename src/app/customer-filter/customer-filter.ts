@@ -47,10 +47,8 @@ export class CustomerFilter {
   }
 
   applyFilters() {
-    console.log(
-      'Applying filters:',
-      this.funnelSteps().map((step) => step())
-    );
+    console.dir(this.funnelSteps().map((step) => step()));
+    console.debug(JSON.stringify(this.funnelSteps().map((step) => step())));
   }
 
   discardFilters() {
